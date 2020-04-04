@@ -42,6 +42,41 @@ namespace CertificateMaker.core.office
             }
         }
 
+        /// <summary>
+        /// Объединение нескольких документов word в один
+        /// </summary>
+        /// <param name="filePathOutput">Имя выходного файла</param>
+        /// <param name="mergeDocs">Массив имен файлов, из которых будет скопировано содержимое в выходной файл</param>
+        public static void MergerDocs(string filePathOutput, string[] mergeDocs)
+        {
+            object sectionBreak = Word.WdBreakType.wdSectionBreakNextPage;
+            Word.Application app = null;
+            try
+            {
+                app = new Word.Application();
+                Word.Document doc = app.Documents.Add();
+                Word.Selection selection = app.Selection;
+                for (int i = 0; i < mergeDocs.Length; i++)
+                {
+                    selection.InsertFile(mergeDocs[i]);
+                    if (i != mergeDocs.Length - 1)
+                    {
+                        selection.InsertBreak(sectionBreak);
+                    }
+                }
+                doc.SaveAs2(filePathOutput);
+                doc.Close();
+            }
+            finally
+            {
+                try
+                {
+                    app.Quit();
+                }
+                catch (Exception) { }
+            }
+        }
+
         protected static void FindAndReplace(Microsoft.Office.Interop.Word.Application doc, object findText, object replaceWithText)
         {
             //options
