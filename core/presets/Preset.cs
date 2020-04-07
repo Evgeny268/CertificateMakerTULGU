@@ -9,6 +9,7 @@ namespace CertificateMaker.core.presets
     /// <summary>
     /// Пресет для программы
     /// </summary>
+    [Serializable]
     class Preset
     {
         public string templatePath { get; set; } = null;

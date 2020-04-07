@@ -9,6 +9,7 @@ namespace CertificateMaker.core.presets
     /// <summary>
     /// Пресеты для каждого тега из шаблона
     /// </summary>
+    [Serializable]
     class Table
     {
         public string templateField { get; set; } = null;
