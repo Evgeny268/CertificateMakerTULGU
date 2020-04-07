@@ -22,7 +22,22 @@ namespace CertificateMaker
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
+
+        private void Add_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var data = new User { TagName = "1", Value = "2" };
+
+            dataGrid.Items.Add(data);
+        }
+    }
+    public class User
+    {
+        public string TagName { get; set; }
+
+        public ComboBox DataType { get; set; }
+
+        public string Value { get; set; }
     }
 }
