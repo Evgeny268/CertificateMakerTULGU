@@ -11,9 +11,9 @@ namespace CertificateMaker.core.presets
     /// </summary>
     class Table
     {
-        private string templateField { get; set; } = null;
-        private TemplateType type { get; set; } = TemplateType.excel;
-        private Nullable<int> value { get; set; } = null;
+        public string templateField { get; set; } = null;
+        public TemplateType type { get; set; } = TemplateType.excel;
+        public Nullable<int> value { get; set; } = null;
 
         /// <summary>
         /// Конструктор для тега из шаблона

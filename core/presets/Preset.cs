@@ -11,11 +11,11 @@ namespace CertificateMaker.core.presets
     /// </summary>
     class Preset
     {
-        private string templatePath { get; set; } = null;
-        private string excelPath { get; set; } = null;
-        private Nullable<int> startRowImport { get; set; } = null;
-        private Nullable<int> endRowImport { get; set; } = null;
-        List<Table> rows { get; set; } = null;
+        public string templatePath { get; set; } = null;
+        public string excelPath { get; set; } = null;
+        public Nullable<int> startRowImport { get; set; } = null;
+        public Nullable<int> endRowImport { get; set; } = null;
+        public List<Table> rows { get; set; } = null;
 
         /// <summary>
         /// Конструктор для пресета
