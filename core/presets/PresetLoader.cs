@@ -31,7 +31,7 @@ namespace CertificateMaker.core.presets
         /// Загрузка пресета с диска
         /// </summary>
         /// <param name="filepath">Путь до файла на диске</param>
-        /// <returns></returns>
+        /// <returns>Загруженный с диска пресет</returns>
         public static Preset LoadPreset(string filepath)
         {
             IFormatter formatter = new BinaryFormatter();
