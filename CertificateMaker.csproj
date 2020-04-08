@@ -63,6 +63,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="core\appWorker\AppWorker.cs" />
+    <Compile Include="core\appWorker\IWorkerListener.cs" />
     <Compile Include="core\office\ExcelWorker.cs" />
     <Compile Include="core\office\WordWorker.cs" />
     <Compile Include="core\presets\Preset.cs" />
