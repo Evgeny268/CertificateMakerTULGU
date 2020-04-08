@@ -68,6 +68,7 @@
     <Compile Include="core\office\ExcelWorker.cs" />
     <Compile Include="core\office\WordWorker.cs" />
     <Compile Include="core\presets\Preset.cs" />
+    <Compile Include="core\presets\PresetLoader.cs" />
     <Compile Include="core\presets\Table.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
