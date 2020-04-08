@@ -14,6 +14,8 @@ namespace CertificateMaker.core.appWorker
         private static readonly string TEMP_FOLDER_NAME = "app_temp";
         private static readonly string TEMP_DOC_NAME = "DOC";
 
+        public IWorkerListener workerListener { private get; set; } = null;
+
         private string filePathOut = null;
         private List<string[]> excelData = null;
         private int[] cellsNeeedReadFromExcel = null;
@@ -38,13 +40,29 @@ namespace CertificateMaker.core.appWorker
             this.filePathOut = filePathOut;
             this.preset = preset;
             FindCellsNumForRead();
+            if (workerListener != null)
+            {
+                workerListener.WorkStatus(WorkStage.READ_FROM_EXCEL, 0, 0);
+            }
             ReadDataFromExcel();
             CreateTempFolder();
             for (int i = 0; i < excelData.Count(); i++)
             {
+                if (workerListener != null)
+                {
+                    workerListener.WorkStatus(WorkStage.CREATE_DOC, i, excelData.Count());
+                }
                 CreateDoc(i);
             }
+            if (workerListener != null)
+            {
+                workerListener.WorkStatus(WorkStage.MERGE_DOC, 0, 0);
+            }
             MergeDocs();
+            if (workerListener != null)
+            {
+                workerListener.WorkStatus(WorkStage.DELETE_TEMP_FILES, 0, 0);
+            }
             DeleteTempFolder();
         }
 
