@@ -69,6 +69,7 @@
     <Compile Include="core\office\WordWorker.cs" />
     <Compile Include="core\presets\Preset.cs" />
     <Compile Include="core\presets\Table.cs" />
+    <Compile Include="core\test\Test.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

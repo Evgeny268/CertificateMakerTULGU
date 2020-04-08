@@ -19,10 +19,8 @@
         <Label Content="Выберите шаблон в Word" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="241" Height="51" FontSize="18"/>
         <Label Content="Выберите файл Excel " HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="241" Height="51" FontSize="18"/>
         <Button Content="Сохранить как" HorizontalAlignment="Left" Margin="180,525,0,0" VerticalAlignment="Top" Width="132" Height="32" FontSize="18" RenderTransformOrigin="0.5,0.5" Background="#FFF3F3F3" IsEnabled="False"/>
-        <ComboBox HorizontalAlignment="Left" Margin="37,217,0,0" VerticalAlignment="Top" Width="91"/>
         <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="38" Margin="0,210,0,0" VerticalAlignment="Top" Width="480" Grid.ColumnSpan="2"/>
         <Label Content="Строки импорта из Excel:" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top" Width="452" Height="51" FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        <ComboBox HorizontalAlignment="Left" Margin="231,217,0,0" VerticalAlignment="Top" Width="91"/>
         <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="107" Margin="0,49,0,0" VerticalAlignment="Top" Width="480" Grid.ColumnSpan="2"/>
         <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="225" Margin="0,286,0,0" VerticalAlignment="Top" Width="480" Grid.ColumnSpan="2">
             <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="166" Margin="10,9,0,0" VerticalAlignment="Top" Width="460" AutoGenerateColumns="False" MinColumnWidth="3">
@@ -34,6 +32,8 @@
             </DataGrid>
         </Border>
         <Label Content="Столбцы импорта из Excel:" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" Width="302" Height="51" FontSize="18" FontWeight="Bold"/>
-        <Button x:Name="AddBtn" Content="Добавить строку" HorizontalAlignment="Left" Margin="166,468,0,0" VerticalAlignment="Top" Width="165" Height="32" FontSize="18" RenderTransformOrigin="0.5,0.5" Background="#FFF3F3F3" Click="Add_Button_Click"/>
+        <Button x:Name="AddBtn" Content="Добавить поле" HorizontalAlignment="Left" Margin="166,468,0,0" VerticalAlignment="Top" Width="165" Height="32" FontSize="18" RenderTransformOrigin="0.5,0.5" Background="#FFF3F3F3" Click="Add_Button_Click"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="37,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="232,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94"/>
     </Grid>
 </Window>
