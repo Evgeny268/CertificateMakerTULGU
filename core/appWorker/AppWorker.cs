@@ -101,7 +101,7 @@ namespace CertificateMaker.core.appWorker
         {
             if (Directory.Exists(Directory.GetCurrentDirectory()+"/"+TEMP_FOLDER_NAME))
             {
-                Directory.Delete(Directory.GetCurrentDirectory()+"/"+TEMP_FOLDER_NAME);
+                Directory.Delete(Directory.GetCurrentDirectory()+"/"+TEMP_FOLDER_NAME, true);
             }
             Directory.CreateDirectory(Directory.GetCurrentDirectory()+"/"+TEMP_FOLDER_NAME);
         }
@@ -143,7 +143,7 @@ namespace CertificateMaker.core.appWorker
         {
             if (Directory.Exists(Directory.GetCurrentDirectory()+"/"+TEMP_FOLDER_NAME))
             {
-                Directory.Delete(Directory.GetCurrentDirectory()+"/"+TEMP_FOLDER_NAME);
+                Directory.Delete(Directory.GetCurrentDirectory()+"/"+TEMP_FOLDER_NAME, true);
             }
         }
     }
