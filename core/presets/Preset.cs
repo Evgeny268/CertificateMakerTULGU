@@ -18,7 +18,9 @@ namespace CertificateMaker.core.presets
         public Nullable<int> endRowImport { get; set; } = null;
         public List<Table> rows { get; set; } = null;
 
-        public Preset() { }
+        public Preset() {
+            rows = new List<Table>();
+        }
 
         /// <summary>
         /// Конструктор для пресета
@@ -35,6 +37,19 @@ namespace CertificateMaker.core.presets
             this.startRowImport = startRowImport;
             this.endRowImport = endRowImport;
             this.rows = rows;
+        }
+
+        public Table GetTableByName(string templateField)
+        {
+            if (rows == null) return null;
+            for (int i = 0; i < rows.Count(); i++)
+            {
+                if (rows[i].templateField.Equals(templateField))
+                {
+                    return rows[i];
+                }
+            }
+            return null;
         }
     }
 }
