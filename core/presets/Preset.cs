@@ -18,6 +18,8 @@ namespace CertificateMaker.core.presets
         public Nullable<int> endRowImport { get; set; } = null;
         public List<Table> rows { get; set; } = null;
 
+        public Preset() { }
+
         /// <summary>
         /// Конструктор для пресета
         /// </summary>

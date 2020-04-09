@@ -16,6 +16,8 @@ namespace CertificateMaker.core.presets
         public TemplateType type { get; set; } = TemplateType.excel;
         public Nullable<int> value { get; set; } = null;
 
+        public Table() {}
+
         /// <summary>
         /// Конструктор для тега из шаблона
         /// </summary>
