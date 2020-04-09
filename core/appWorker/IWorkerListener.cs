@@ -25,6 +25,7 @@ namespace CertificateMaker.core.appWorker
         READ_FROM_EXCEL, //Чтение из excel
         CREATE_DOC, //Создание документа word, тут применяется отслеживание прогресса (int current, int all)
         MERGE_DOC, //Объединение документов
-        DELETE_TEMP_FILES //Удаление временной директории
+        DELETE_TEMP_FILES, //Удаление временной директории
+        DONE //Все задачи выполнены
     }
 }
