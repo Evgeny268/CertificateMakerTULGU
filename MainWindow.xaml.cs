@@ -27,23 +27,65 @@ namespace CertificateMaker
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            //var data = new User { TagName = "1", Value = "2" };
+            //var data = new user { tagname = "1", value = "2" };
 
-            //dataGrid.Items.Add(data);
-            core.presets.Table table1 = new core.presets.Table("<test1>", core.presets.TemplateType.excel, 4);
-            core.presets.Table table2 = new core.presets.Table("<test2>", core.presets.TemplateType.excel, 2);
-            core.presets.Table table3 = new core.presets.Table("<test3>", core.presets.TemplateType.excel, 2);
-            core.presets.Table table4 = new core.presets.Table("<test4>", core.presets.TemplateType.excel, 1);
-            core.presets.Table table5 = new core.presets.Table("<test5>", core.presets.TemplateType.generate, 10);
-            List<core.presets.Table> rows = new List<core.presets.Table>();
-            rows.Add(table1);
-            rows.Add(table2);
-            rows.Add(table3);
-            rows.Add(table4);
-            rows.Add(table5);
-            core.presets.Preset preset = new core.presets.Preset("D:/test.docx", "D:/test.xlsx", 1, 4, rows);
-            core.appWorker.AppWorker appWorker = new core.appWorker.AppWorker();
-            appWorker.MakeDocs("D:/result.docx", preset);
+            //datagrid.items.add(data);
+        }
+
+        private void btnWordLoad_Click(object sender, RoutedEventArgs e)
+        {
+            // Configure open file dialog box
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "Document"; // Default file name
+            dlg.DefaultExt = ".DOC .DOCX .DOCM"; // Default file extension
+            dlg.Filter = "MS Word Документ|*.DOC;*.DOCX;*.DOCM"; // Filter files by extension
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                // Open document
+                WordFileName.Content = dlg.FileName;
+            }
+        }
+
+        private void btnExcelLoad_Click(object sender, RoutedEventArgs e)
+        {
+            // Configure open file dialog box
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "Document"; // Default file name
+            dlg.DefaultExt = ".xls"; // Default file extension
+            dlg.Filter = "Excel таблица|*.xls;*.xlsx"; // Filter files by extension
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                // Open document
+                ExcelFileName.Content = dlg.FileName;
+            }
+        }
+
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !e.Text.All(IsGood);
+        }
+        private void OnPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            var stringData = (string)e.DataObject.GetData(typeof(string));
+            if (stringData == null || !stringData.All(IsGood))
+                e.CancelCommand();
+        }
+
+        bool IsGood(char c)
+        {
+            if (c >= '0' && c <= '9')
+                return true;
+            return false;
         }
     }
     public class User
