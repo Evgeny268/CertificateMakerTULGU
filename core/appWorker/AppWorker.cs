@@ -64,6 +64,10 @@ namespace CertificateMaker.core.appWorker
                 workerListener.WorkStatus(WorkStage.DELETE_TEMP_FILES, 0, 0);
             }
             DeleteTempFolder();
+            if (workerListener != null)
+            {
+                workerListener.WorkStatus(WorkStage.DONE, 0, 0);
+            }
         }
 
         public bool CheckPreset(presets.Preset preset)
