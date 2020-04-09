@@ -20,17 +20,11 @@ namespace CertificateMaker
     /// </summary>
     public partial class MainWindow : Window
     {
+        core.presets.Preset preset = new core.presets.Preset();
         public MainWindow()
         {
             InitializeComponent();            
-        }
-
-        private void Add_Button_Click(object sender, RoutedEventArgs e)
-        {
-            //var data = new user { tagname = "1", value = "2" };
-
-            //datagrid.items.add(data);
-        }
+        }               
 
         private void btnWordLoad_Click(object sender, RoutedEventArgs e)
         {
@@ -48,6 +42,7 @@ namespace CertificateMaker
             {
                 // Open document
                 WordFileName.Content = dlg.FileName;
+                preset.templatePath = dlg.FileName;
             }
         }
 
@@ -67,6 +62,7 @@ namespace CertificateMaker
             {
                 // Open document
                 ExcelFileName.Content = dlg.FileName;
+                preset.excelPath = dlg.FileName;
             }
         }
 
@@ -87,6 +83,66 @@ namespace CertificateMaker
                 return true;
             return false;
         }
+
+        private void subLoad_Click(object sender, RoutedEventArgs e)
+        {
+            // Configure open file dialog box
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "Preset"; // Default file name
+            dlg.DefaultExt = ".cm"; // Default file extension
+            dlg.Filter = "Пресет|*.cm"; // Filter files by extension
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                //Load preset
+                preset = core.presets.PresetLoader.LoadPreset(dlg.FileName);
+                UpdateFromPreset();
+            }
+        }
+
+        private void subSave_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Preset"; // Default file name
+            dlg.DefaultExt = ".cm"; // Default file extension
+            dlg.Filter = "Пресет|*.cm"; // Filter files by extension  
+
+            if (toRow.Text != null && !toRow.Text.Equals(""))
+            {
+                preset.endRowImport = int.Parse(toRow.Text);
+            }
+            if (fromRow.Text != null && !fromRow.Text.Equals(""))
+            {
+                preset.startRowImport = int.Parse(fromRow.Text);
+            }
+
+            if (dlg.ShowDialog() == true)
+                core.presets.PresetLoader.SavePreset(dlg.FileName, preset);
+        }
+
+        private void UpdateFromPreset()
+        {
+            fromRow.Text = "";
+            toRow.Text = "";
+            ExcelFileName.Content = "Выберите файл Excel";
+            WordFileName.Content = "Выберите шаблон в Word";
+            if (preset.startRowImport != null)
+                fromRow.Text = preset.startRowImport.GetValueOrDefault().ToString();
+            if (preset.endRowImport != null)
+                toRow.Text = preset.endRowImport.GetValueOrDefault().ToString();
+            if (preset.excelPath != null)
+                ExcelFileName.Content = preset.excelPath;
+            if (preset.templatePath != null)
+                WordFileName.Content = preset.templatePath;
+        }
+        private void Add_Button_Click(object sender, RoutedEventArgs e)
+        {
+            DataTable.Items.Add(new User());
+        }
     }
     public class User
     {
@@ -94,6 +150,6 @@ namespace CertificateMaker
 
         public ComboBox DataType { get; set; }
 
-        public string Value { get; set; }
+        public Nullable<int> Value { get; set; }
     }
 }

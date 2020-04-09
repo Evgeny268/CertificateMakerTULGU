@@ -23,10 +23,10 @@
         <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="38" Margin="0,226,0,0" VerticalAlignment="Top" Width="478" Grid.ColumnSpan="2"/>
         <Label Content="Строки импорта из Excel:" HorizontalAlignment="Left" Margin="13,178,0,0" VerticalAlignment="Top" Width="452" Height="50" FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="226" Margin="0,302,0,0" VerticalAlignment="Top" Width="478" Grid.ColumnSpan="2">
-            <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="166" Margin="10,9,0,0" VerticalAlignment="Top" Width="460" AutoGenerateColumns="False" MinColumnWidth="3">
+            <DataGrid x:Name="DataTable" HorizontalAlignment="Left" Height="166" Margin="10,9,0,0" VerticalAlignment="Top" Width="460" AutoGenerateColumns="False" MinColumnWidth="3">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Имя элемента шаблона" Binding="{Binding TagName}"/>
-                    <DataGridComboBoxColumn Header="Тип заполнения"/>
+                    <DataGridComboBoxColumn Header="Тип заполнения" SelectedValueBinding="{Binding DataType}"/>
                     <DataGridTextColumn Header="Значение" Binding="{Binding Value}"/>
                 </DataGrid.Columns>
             </DataGrid>
@@ -37,10 +37,10 @@
         <TextBox x:Name="toRow" HorizontalAlignment="Left" Height="22" Margin="235,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting"/>
         <Menu HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="482" Grid.ColumnSpan="2">
             <MenuItem Header="Меню">
-                <Button Content="Загрузить пресет" Width="120"/>
-                <Button Content="Сохранить пресет" Width="120"/>
+                <Button Content="Загрузить пресет" Width="120" x:Name="subLoad" Click="subLoad_Click"/>
+                <Button Content="Сохранить пресет" Width="120" x:Name="subSave" Click="subSave_Click"/>
             </MenuItem>
         </Menu>
-        <ProgressBar HorizontalAlignment="Left" Height="24" Margin="10,540,0,0" VerticalAlignment="Top" Width="452" Grid.ColumnSpan="2"/>
+        <ProgressBar HorizontalAlignment="Left" Height="24" Margin="10,533,0,0" VerticalAlignment="Top" Width="464" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
