@@ -6,41 +6,47 @@
         xmlns:local="clr-namespace:CertificateMaker"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="CertificateMaker.MainWindow"
         mc:Ignorable="d"
-        Title="Работа с сертификатами" Height="659.833" Width="484.5" Background="#FFEBFFFC" HorizontalAlignment="Left" VerticalAlignment="Top" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Работа с сертификатами" Height="659.833" Width="603.037" Background="#FFEBFFFC" HorizontalAlignment="Left" VerticalAlignment="Top" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,-6,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="595*"/>
+            <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="106" Margin="0,67,0,0" VerticalAlignment="Top" Width="478" Grid.ColumnSpan="2"/>
-        <Label Content="C                      строки,  по                      строку" HorizontalAlignment="Left" Margin="13,226,0,0" VerticalAlignment="Top" Width="427" Height="52" FontSize="18" Grid.ColumnSpan="2"/>
+        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="106" Margin="0,67,0,0" VerticalAlignment="Top" Width="586"/>
+        <Label Content="C                      строки,  по                      строку" HorizontalAlignment="Left" Margin="13,226,0,0" VerticalAlignment="Top" Width="427" Height="52" FontSize="18"/>
         <Label Content="Выберите шаблон и источник данных:" HorizontalAlignment="Left" Margin="13,26,0,0" VerticalAlignment="Top" Width="362" Height="52" FontSize="18" FontWeight="Bold"/>
         <Button x:Name="btnWordLoad" Content="Выбрать" HorizontalAlignment="Left" Margin="259,78,0,0" VerticalAlignment="Top" Width="91" Height="32" FontSize="18" Background="#FFF3F3F3" Click="btnWordLoad_Click"/>
         <Button x:Name="btnExcelLoad" Content="Выбрать" HorizontalAlignment="Left" Margin="259,128,0,0" VerticalAlignment="Top" Width="91" Height="32" FontSize="18" Background="#FFF3F3F3" Click="btnExcelLoad_Click"/>
         <Label x:Name="WordFileName" Content="Выберите шаблон в Word" HorizontalAlignment="Left" Margin="13,76,0,0" VerticalAlignment="Top" Width="241" Height="50" FontSize="18"/>
         <Label x:Name="ExcelFileName" Content="Выберите файл Excel " HorizontalAlignment="Left" Margin="13,126,0,0" VerticalAlignment="Top" Width="241" Height="52" FontSize="18"/>
         <Button Content="Сохранить как" HorizontalAlignment="Left" Margin="183,578,0,0" VerticalAlignment="Top" Width="132" Height="32" FontSize="18" RenderTransformOrigin="0.5,0.5" Background="#FFF3F3F3" IsEnabled="False"/>
-        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="38" Margin="0,226,0,0" VerticalAlignment="Top" Width="478" Grid.ColumnSpan="2"/>
-        <Label Content="Строки импорта из Excel:" HorizontalAlignment="Left" Margin="13,178,0,0" VerticalAlignment="Top" Width="452" Height="50" FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2"/>
-        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="226" Margin="0,302,0,0" VerticalAlignment="Top" Width="478" Grid.ColumnSpan="2">
-            <DataGrid x:Name="DataTable" HorizontalAlignment="Left" Height="166" Margin="10,9,0,0" VerticalAlignment="Top" Width="460" AutoGenerateColumns="False" MinColumnWidth="3">
+        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="38" Margin="0,226,0,0" VerticalAlignment="Top" Width="586"/>
+        <Label Content="Строки импорта из Excel:" HorizontalAlignment="Left" Margin="13,178,0,0" VerticalAlignment="Top" Width="580" Height="50" FontSize="18" FontWeight="Bold"/>
+        <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Center" Height="181" Margin="10,347,10,0" VerticalAlignment="Top" Width="575">
+            <DataGrid x:Name="templateItems" Height="166" Margin="10,9,10,0" VerticalAlignment="Top" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Имя элемента шаблона" Binding="{Binding TagName}"/>
-                    <DataGridComboBoxColumn Header="Тип заполнения" SelectedValueBinding="{Binding DataType}"/>
-                    <DataGridTextColumn Header="Значение" Binding="{Binding Value}"/>
+                    <DataGridTextColumn Header="Тэг" Binding="{Binding templateField}"/>
+                    <DataGridTextColumn Header="Тип" Binding="{Binding type}"/>
+                    <DataGridTextColumn Header="Значение" Binding="{Binding value}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
         <Label Content="Столбцы импорта из Excel:" HorizontalAlignment="Left" Margin="13,266,0,0" VerticalAlignment="Top" Width="302" Height="50" FontSize="18" FontWeight="Bold"/>
-        <Button x:Name="AddBtn" Content="Добавить поле" HorizontalAlignment="Left" Margin="164,487,0,0" VerticalAlignment="Top" Width="165" Height="32" FontSize="18" RenderTransformOrigin="0.5,0.5" Background="#FFF3F3F3" Click="Add_Button_Click"/>
+        <Button x:Name="AddBtn" Content="Добавить" HorizontalAlignment="Left" Margin="479,293,0,0" VerticalAlignment="Top" Width="94" Height="32" FontSize="18" RenderTransformOrigin="0.5,0.5" Background="#FFF3F3F3" Click="Add_Button_Click"/>
         <TextBox x:Name="fromRow" HorizontalAlignment="Left" Height="22" Margin="40,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting"/>
         <TextBox x:Name="toRow" HorizontalAlignment="Left" Height="22" Margin="235,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting"/>
-        <Menu HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="482" Grid.ColumnSpan="2">
+        <Menu HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="482">
             <MenuItem Header="Меню">
                 <Button Content="Загрузить пресет" Width="120" x:Name="subLoad" Click="subLoad_Click"/>
                 <Button Content="Сохранить пресет" Width="120" x:Name="subSave" Click="subSave_Click"/>
             </MenuItem>
         </Menu>
-        <ProgressBar HorizontalAlignment="Left" Height="24" Margin="10,533,0,0" VerticalAlignment="Top" Width="464" Grid.ColumnSpan="2"/>
+        <ProgressBar HorizontalAlignment="Left" Height="24" Margin="10,549,0,0" VerticalAlignment="Top" Width="464"/>
+        <TextBox x:Name="textBoxTemplateName" HorizontalAlignment="Left" Height="23" Margin="14,310,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" Text="Тэг"/>
+        <ComboBox x:Name="comboBoxType" HorizontalAlignment="Left" Margin="195,310,0,0" VerticalAlignment="Top" Width="120" Height="22" SelectedIndex="0">
+            <ComboBoxItem Content="excel"></ComboBoxItem>
+            <ComboBoxItem Content="автоинкремент"></ComboBoxItem>
+        </ComboBox>
+        <TextBox x:Name="textBoxValue" HorizontalAlignment="Left" Height="23" Margin="337,309,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

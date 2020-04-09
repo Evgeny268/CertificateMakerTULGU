@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CertificateMaker.core.presets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -130,6 +131,7 @@ namespace CertificateMaker
             toRow.Text = "";
             ExcelFileName.Content = "Выберите файл Excel";
             WordFileName.Content = "Выберите шаблон в Word";
+            templateItems.Items.Clear();
             if (preset.startRowImport != null)
                 fromRow.Text = preset.startRowImport.GetValueOrDefault().ToString();
             if (preset.endRowImport != null)
@@ -138,10 +140,52 @@ namespace CertificateMaker
                 ExcelFileName.Content = preset.excelPath;
             if (preset.templatePath != null)
                 WordFileName.Content = preset.templatePath;
+            for (int i = 0; i < preset.rows.Count(); i++)
+            {
+                templateItems.Items.Add(preset.rows[i]);
+            }
         }
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            DataTable.Items.Add(new User());
+            string templateField = textBoxTemplateName.Text;
+            if (templateField.Equals(""))
+            {
+                //TODO заругать, что не введне тэг
+                return;
+            }
+            TemplateType type;
+            int indexType = comboBoxType.SelectedIndex;
+            if (indexType == 0)
+            {
+                type = TemplateType.excel;
+            }
+            else
+            {
+                type = TemplateType.generate;
+            }
+            string value = textBoxValue.Text;
+            if (value.Equals(""))
+            {
+                //TODO заругать, что не введено значение
+                return;
+            }
+            core.presets.Table oldTable = preset.GetTableByName(templateField);
+            if (oldTable != null)
+            {
+                //TODO заругать, что такой тэг уже есть
+                return;
+            }
+            textBoxTemplateName.Text = "";
+            comboBoxType.SelectedIndex = 0;
+            textBoxValue.Text = "";
+            core.presets.Table addTable = new core.presets.Table(templateField, type, int.Parse(value));
+            preset.rows.Add(addTable);
+            UpdateFromPreset();
+        }
+
+        private void add(object sender, RoutedEventArgs e)
+        {
+
         }
     }
     public class User
