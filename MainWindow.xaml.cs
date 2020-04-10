@@ -109,6 +109,8 @@ namespace CertificateMaker
                 preset = core.presets.PresetLoader.LoadPreset(dlg.FileName);
                 UpdateFromPreset();
             }
+            Progress_Lbl.Content = "";
+            Progress_Lbl.Background = Brushes.DarkGray;
         }
 
         private void subSave_Click(object sender, RoutedEventArgs e)
@@ -120,6 +122,8 @@ namespace CertificateMaker
 
             if (dlg.ShowDialog() == true)
                 core.presets.PresetLoader.SavePreset(dlg.FileName, preset);
+            Progress_Lbl.Content = "";
+            Progress_Lbl.Background = Brushes.DarkGray;
         }
 
         private void UpdateFromPreset()
@@ -222,7 +226,7 @@ namespace CertificateMaker
                 Progress_Lbl.Content = "Не все данные заполнены";
                 Progress_Lbl.Background = Brushes.Red;
                 return;
-            }
+            }            
 
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "Document"; // Default file name
@@ -231,18 +235,21 @@ namespace CertificateMaker
 
             if (dlg.ShowDialog() == true)
             {
+                btnSave.IsEnabled = false;
                 core.appWorker.AppWorker appWorker = new core.appWorker.AppWorker();
                 try
                 {
                     appWorker.workerListener = this;
                     Thread thread = new Thread(() => appWorker.MakeDocs(dlg.FileName, preset));
                     thread.Start();
+                    btnSave.IsEnabled = true;
                 }
                 catch
                 {
                     Progress_Lbl.Content = "Произошла ошибка! Проверьте пути до файлов и начилие MS Office";
                     Progress_Lbl.Background = Brushes.Red;
                     progressStatus.Value = 0;
+                    btnSave.IsEnabled = true;
                     return;
                 }
             }         
@@ -291,7 +298,7 @@ namespace CertificateMaker
 
         private void toRow_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!fromRow.Text.Equals(""))
+            if (!fromRow.Text.Equals("") && !toRow.Text.Equals(""))
                 if ((int.Parse(toRow.Text) <= int.Parse(fromRow.Text)) )
                 {
                     Progress_Lbl.Content = "Значение ДО не может быть меньше значения ОТ!";
@@ -327,7 +334,7 @@ namespace CertificateMaker
                 btnSave.IsEnabled = false;
                 return;
             }
-            if (!toRow.Text.Equals(""))
+            if (!fromRow.Text.Equals("") && !toRow.Text.Equals(""))
                 if (int.Parse(toRow.Text) <= int.Parse(fromRow.Text))
                 {
                     Progress_Lbl.Content = "Значение ОТ не может быть больше значения ДО!";
@@ -398,7 +405,7 @@ namespace CertificateMaker
 
         private void comboBoxType_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (textBoxValue.Text.Equals("") || textBoxValue.Text.Equals("Номер столбца") || textBoxValue.Text.Equals("Начальное значение"))
+            if (textBoxValue.Text.Equals("Номер столбца") || textBoxValue.Text.Equals("Начальное значение"))
             {
                 if (comboBoxType.SelectedIndex == 0)
                     textBoxValue.Text = "Номер столбца";
@@ -422,6 +429,14 @@ namespace CertificateMaker
                 AddBtn.IsEnabled = true;
             else
                 AddBtn.IsEnabled = false;
+        }
+
+        private void subNew_Click(object sender, RoutedEventArgs e)
+        {
+            preset = new Preset();
+            UpdateFromPreset();
+            Progress_Lbl.Content = "";
+            Progress_Lbl.Background = Brushes.DarkGray;
         }
     }
 }
