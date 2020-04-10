@@ -33,7 +33,7 @@
         </Border>
         <Label Content="Столбцы импорта из Excel:" HorizontalAlignment="Left" Margin="13,266,0,0" VerticalAlignment="Top" Width="302" Height="50" FontSize="18" FontWeight="Bold"/>
         <Button x:Name="AddBtn" Content="Добавить" HorizontalAlignment="Left" Margin="494,327,0,0" VerticalAlignment="Top" Width="79" Height="24" FontSize="14" RenderTransformOrigin="0.5,0.5" Background="#FFF3F3F3" Click="Add_Button_Click"/>
-        <TextBox x:Name="fromRow" HorizontalAlignment="Left" Height="22" Margin="40,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting" LostFocus="onLostFocus"/>
+        <TextBox x:Name="fromRow" HorizontalAlignment="Left" Height="22" Margin="40,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting" LostFocus="fromRow_LostFocus"/>
         <TextBox x:Name="toRow" HorizontalAlignment="Left" Height="22" Margin="235,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting" LostFocus="toRow_LostFocus"/>
         <Menu HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="598" Grid.ColumnSpan="2">
             <MenuItem Header="Меню">
@@ -53,7 +53,7 @@
             <ComboBoxItem Content="excel"></ComboBoxItem>
             <ComboBoxItem Content="автоинкремент"></ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="textBoxValue" HorizontalAlignment="Left" Height="24" Margin="342,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="OnPreviewTextInput" LostFocus="onLostFocus"/>
+        <TextBox x:Name="textBoxValue" HorizontalAlignment="Left" Height="24" Margin="342,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewTextInput="OnPreviewTextInput" LostFocus="textBoxValue_LostFocus"/>
         <Button x:Name="button" Content="Удалить выделенное поле" HorizontalAlignment="Left" Margin="10,574,0,0" VerticalAlignment="Top" Width="233" Click="ClickDeleteField" FontSize="14" Background="#FFF3F3F3"/>
         <Label x:Name="Progress_Lbl" Content="" HorizontalAlignment="Left" Margin="0,704,0,-7" VerticalAlignment="Top" Width="598" Height="39" FontSize="14" Grid.ColumnSpan="2" Foreground="White">
             <Label.Background>

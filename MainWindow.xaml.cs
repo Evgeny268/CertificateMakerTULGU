@@ -112,16 +112,7 @@ namespace CertificateMaker
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "Preset"; // Default file name
             dlg.DefaultExt = ".cm"; // Default file extension
-            dlg.Filter = "Пресет|*.cm"; // Filter files by extension  
-
-            if (toRow.Text != null && !toRow.Text.Equals(""))
-            {
-                preset.endRowImport = int.Parse(toRow.Text);
-            }
-            if (fromRow.Text != null && !fromRow.Text.Equals(""))
-            {
-                preset.startRowImport = int.Parse(fromRow.Text);
-            }
+            dlg.Filter = "Пресет|*.cm"; // Filter files by extension              
 
             if (dlg.ShowDialog() == true)
                 core.presets.PresetLoader.SavePreset(dlg.FileName, preset);
@@ -282,29 +273,52 @@ namespace CertificateMaker
 
         private void toRow_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (int.Parse(toRow.Text) < int.Parse(fromRow.Text))
+            if ((int.Parse(toRow.Text) < int.Parse(fromRow.Text)) || !fromRow.Text.Equals("") || fromRow.Text != null)
             {
-                Progress_Lbl.Content = "Значение до не может быть меньше значения от!";
+                Progress_Lbl.Content = "Значение ДО не может быть меньше значения ОТ!";
                 Progress_Lbl.Background = Brushes.Red;
+                toRow.BorderBrush = Brushes.Red;
                 btnSave.IsEnabled = false;
+                return;
             }
+            preset.endRowImport = int.Parse(toRow.Text);           
             Progress_Lbl.Content = "";
             Progress_Lbl.Background = Brushes.DarkGray;
+            toRow.BorderBrush = Brushes.Gray;
             btnSave.IsEnabled = true;
         }
 
-        private void onLostFocus(object sender, RoutedEventArgs e)
+        private void fromRow_LostFocus(object sender, RoutedEventArgs e)
         {
-            //TextBox textBox = ((TextBox)sender);
-            //if (int.Parse(textBox.Text) == 0 || !textBox.Text.Equals(""))
-            //{
-            //    Progress_Lbl.Content = "Значение полей не может быть пустым или равно 0";
-            //    Progress_Lbl.Background = Brushes.Red;
-            //    btnSave.IsEnabled = false;
-            //}
+            if (int.Parse(fromRow.Text) == 0 || !fromRow.Text.Equals("") || fromRow.Text != null)
+            {
+                Progress_Lbl.Content = "Значение полей не может быть пустым или равно 0";
+                Progress_Lbl.Background = Brushes.Red;
+                fromRow.BorderBrush = Brushes.Red;
+                btnSave.IsEnabled = false;
+                return;
+            }
+            preset.startRowImport = int.Parse(fromRow.Text);
             Progress_Lbl.Content = "";
             Progress_Lbl.Background = Brushes.DarkGray;
+            fromRow.BorderBrush = Brushes.Gray;
             btnSave.IsEnabled = true;
+        }
+
+        private void textBoxValue_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(textBoxValue.Text) == 0 || !textBoxValue.Text.Equals("") || textBoxValue.Text != null)
+            {
+                Progress_Lbl.Content = "Значение полей не может быть пустым или равно 0";
+                Progress_Lbl.Background = Brushes.Red;
+                textBoxValue.BorderBrush = Brushes.Red;
+                btnSave.IsEnabled = false;
+                return;
+            }
+            Progress_Lbl.Content = "";
+            Progress_Lbl.Background = Brushes.DarkGray;
+            textBoxValue.BorderBrush = Brushes.Gray;
+            btnSave.IsEnabled = true;      
         }
     }
 }
