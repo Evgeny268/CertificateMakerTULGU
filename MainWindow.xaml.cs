@@ -438,5 +438,10 @@ namespace CertificateMaker
             Progress_Lbl.Content = "";
             Progress_Lbl.Background = Brushes.DarkGray;
         }
+
+        private void subAbout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Разработчики программы:\n\nПищулин Евгений Владимирович\nhttps://vk.com/id139690919\n\nГуриков Илья Олегович\nhttps://vk.com/id103838001\n\nСсылка на репозиторий:\nhttps://github.com/Evgeny268/CertificateMakerTULGU", "О программе");
+        }
     }
 }

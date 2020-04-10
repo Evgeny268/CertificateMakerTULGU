@@ -37,10 +37,11 @@
         <TextBox x:Name="toRow" HorizontalAlignment="Left" Height="22" Margin="235,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting" LostFocus="toRow_LostFocus"/>
         <Menu HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="598" Grid.ColumnSpan="2">
             <MenuItem Header="Меню">
-                <Button Content="Сохранить пресет" Width="120" x:Name="subSave" Click="subSave_Click"/>
-                <Button Content="Загрузить пресет" Width="120" x:Name="subLoad" Click="subLoad_Click"/>
-                <Button Content="Сбросить пресет" Width="120" x:Name="subNew" Click="subNew_Click"/>
+                <Button Content="Сохранить пресет" Width="120" x:Name="subSave" Click="subSave_Click" HorizontalAlignment="Left"/>
+                <Button Content="Загрузить пресет" Width="120" x:Name="subLoad" Click="subLoad_Click" HorizontalAlignment="Left"/>
+                <Button Content="Сбросить пресет" Width="120" x:Name="subNew" Click="subNew_Click" HorizontalAlignment="Left"/>                
             </MenuItem>
+            <Button Content="О программе" Width="100" x:Name="subAbout" Click="subAbout_Click" HorizontalAlignment="Left"/>
         </Menu>
         <ProgressBar x:Name="progressStatus" Height="24" Margin="10,626,9,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxTemplateName" HorizontalAlignment="Left" Height="24" Margin="10,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Text="Название поля" Foreground="DarkGray" GotFocus="textBoxTemplateName_GotFocus" LostFocus="textBoxTemplateName_LostFocus" MouseLeave="textBoxTemplateName_MouseLeave" RenderTransformOrigin="0.391,0.681"/>
