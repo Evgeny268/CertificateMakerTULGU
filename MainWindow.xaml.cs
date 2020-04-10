@@ -226,12 +226,7 @@ namespace CertificateMaker
                     progressStatus.Value = 0;
                     return;
                 }
-            }
-            else
-            {
-                Progress_Lbl.Content = "Произошла ошибка! Проверьте пути до файлов и начилие MS Office";
-                Progress_Lbl.Background = Brushes.Red;
-            }            
+            }         
         }
 
         public void WorkStatus(WorkStage stage, int current, int all)
