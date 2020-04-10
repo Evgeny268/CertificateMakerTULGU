@@ -46,6 +46,8 @@ namespace CertificateMaker
                 // Open document
                 WordFileName.Content = dlg.FileName;
                 preset.templatePath = dlg.FileName;
+                Progress_Lbl.Content = "";
+                Progress_Lbl.Background = Brushes.DarkGray;
             }
         }
 
@@ -66,6 +68,8 @@ namespace CertificateMaker
                 // Open document
                 ExcelFileName.Content = dlg.FileName;
                 preset.excelPath = dlg.FileName;
+                Progress_Lbl.Content = "";
+                Progress_Lbl.Background = Brushes.DarkGray;
             }
         }
 
