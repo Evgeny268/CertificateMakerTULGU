@@ -273,7 +273,7 @@ namespace CertificateMaker
                         break;
                     case WorkStage.MERGE_DOC:
                         progressStatus.Value = 100;
-                        Progress_Lbl.Content = "Объединение документов";
+                        Progress_Lbl.Content = "Объединение документов. Ждите...";
                         Progress_Lbl.Background = Brushes.DarkGray;
                         break;
                     case WorkStage.DELETE_TEMP_FILES:

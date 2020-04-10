@@ -15,15 +15,15 @@
         <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="106" Margin="0,67,0,0" VerticalAlignment="Top" Width="598" Grid.ColumnSpan="2"/>
         <Label Content="C                      строки,  по                      строку" HorizontalAlignment="Left" Margin="13,226,0,0" VerticalAlignment="Top" Width="427" Height="52" FontSize="18"/>
         <Label Content="Выберите шаблон и источник данных:" HorizontalAlignment="Left" Margin="13,26,0,0" VerticalAlignment="Top" Width="362" Height="52" FontSize="18" FontWeight="Bold"/>
-        <Button x:Name="btnWordLoad" Content="Выбрать" HorizontalAlignment="Left" Margin="495,76,0,0" VerticalAlignment="Top" Width="91" Height="32" FontSize="18" Background="#FFF3F3F3" Click="btnWordLoad_Click"/>
-        <Button x:Name="btnExcelLoad" Content="Выбрать" HorizontalAlignment="Left" Margin="495,126,0,0" VerticalAlignment="Top" Width="91" Height="32" FontSize="18" Background="#FFF3F3F3" Click="btnExcelLoad_Click"/>
+        <Button x:Name="btnWordLoad" Content="Выбрать" HorizontalAlignment="Left" Margin="488,76,0,0" VerticalAlignment="Top" Width="91" Height="32" FontSize="18" Background="#FFF3F3F3" Click="btnWordLoad_Click"/>
+        <Button x:Name="btnExcelLoad" Content="Выбрать" HorizontalAlignment="Left" Margin="488,126,0,0" VerticalAlignment="Top" Width="91" Height="32" FontSize="18" Background="#FFF3F3F3" Click="btnExcelLoad_Click"/>
         <Label x:Name="WordFileName" Content="Выберите шаблон в Word" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Width="471" Height="50" FontSize="14"/>
         <Label x:Name="ExcelFileName" Content="Выберите файл Excel " HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="471" Height="52" FontSize="14"/>
         <Button x:Name="btnSave" Content="Сохранить как" HorizontalAlignment="Left" Margin="235,664,0,0" VerticalAlignment="Top" Width="132" Height="32" FontSize="18" RenderTransformOrigin="0.5,0.5" Background="#FFF3F3F3" Click="BtnSave_Click"/>
         <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Left" Height="38" Margin="0,226,0,0" VerticalAlignment="Top" Width="598" Grid.ColumnSpan="2"/>
         <Label Content="Строки импорта из Excel:" HorizontalAlignment="Left" Margin="13,178,0,0" VerticalAlignment="Top" Width="580" Height="50" FontSize="18" FontWeight="Bold"/>
         <Border BorderBrush="Black" BorderThickness="0,1" HorizontalAlignment="Center" Height="303" Margin="0,309,6,0" VerticalAlignment="Top" Width="598" Grid.ColumnSpan="2">
-            <DataGrid x:Name="templateItems" Height="199" Margin="10,53,12,0" VerticalAlignment="Top" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid x:Name="templateItems" Height="199" Margin="10,53,10,0" VerticalAlignment="Top" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Поле" Binding="{Binding templateField}" Width="*"/>
                     <DataGridTextColumn Header="Тип" Binding="{Binding type}" Width="*"/>
@@ -32,7 +32,7 @@
             </DataGrid>
         </Border>
         <Label Content="Столбцы импорта из Excel:" HorizontalAlignment="Left" Margin="13,266,0,0" VerticalAlignment="Top" Width="302" Height="50" FontSize="18" FontWeight="Bold"/>
-        <Button x:Name="AddBtn" Content="Добавить" HorizontalAlignment="Left" Margin="495,327,0,0" VerticalAlignment="Top" Width="91" Height="24" FontSize="14" RenderTransformOrigin="0.637,0.597" Background="#FFF3F3F3" Click="Add_Button_Click" IsEnabled="False"/>
+        <Button x:Name="AddBtn" Content="Добавить" HorizontalAlignment="Left" Margin="488,327,0,0" VerticalAlignment="Top" Width="91" Height="24" FontSize="14" RenderTransformOrigin="0.637,0.597" Background="#FFF3F3F3" Click="Add_Button_Click" IsEnabled="False"/>
         <TextBox x:Name="fromRow" HorizontalAlignment="Left" Height="22" Margin="40,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting" LostFocus="fromRow_LostFocus"/>
         <TextBox x:Name="toRow" HorizontalAlignment="Left" Height="22" Margin="235,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" PreviewTextInput="OnPreviewTextInput" DataObject.Pasting="OnPasting" LostFocus="toRow_LostFocus"/>
         <Menu HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="598" Grid.ColumnSpan="2">
@@ -42,7 +42,7 @@
                 <Button Content="Сбросить пресет" Width="120" x:Name="subNew" Click="subNew_Click"/>
             </MenuItem>
         </Menu>
-        <ProgressBar x:Name="progressStatus" HorizontalAlignment="Left" Height="24" Margin="10,626,0,0" VerticalAlignment="Top" Width="576"/>
+        <ProgressBar x:Name="progressStatus" Height="24" Margin="10,626,9,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxTemplateName" HorizontalAlignment="Left" Height="24" Margin="10,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Text="Название поля" Foreground="DarkGray" GotFocus="textBoxTemplateName_GotFocus" LostFocus="textBoxTemplateName_LostFocus" MouseLeave="textBoxTemplateName_MouseLeave" RenderTransformOrigin="0.391,0.681"/>
         <ComboBox x:Name="comboBoxType" HorizontalAlignment="Left" Margin="173,327,0,0" VerticalAlignment="Top" Width="120" Height="24" SelectedIndex="0" RenderTransformOrigin="0.142,0.542" MouseLeave="comboBoxType_MouseLeave">
             <ComboBox.Background>
