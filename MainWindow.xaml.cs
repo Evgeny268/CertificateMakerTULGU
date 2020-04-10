@@ -236,34 +236,37 @@ namespace CertificateMaker
 
         public void WorkStatus(WorkStage stage, int current, int all)
         {
-            switch(stage)
-            {
-                case WorkStage.READ_FROM_EXCEL:
-                    progressStatus.Value = 0;
-                    Progress_Lbl.Content = "Чтение из Excel";
-                    Progress_Lbl.Background = Brushes.DarkGray;
-                    break;
-                case WorkStage.CREATE_DOC:
-                    progressStatus.Value = TransferToProgress(current, 0, all, 0, 100);
-                    Progress_Lbl.Content = "Создание документа " + current + " из " + all;
-                    Progress_Lbl.Background = Brushes.DarkGray;
-                    break;
-                case WorkStage.MERGE_DOC:
-                    progressStatus.Value = 100;
-                    Progress_Lbl.Content = "Объединение документов";
-                    Progress_Lbl.Background = Brushes.DarkGray;
-                    break;
-                case WorkStage.DELETE_TEMP_FILES:
-                    progressStatus.Value = 100;
-                    Progress_Lbl.Content = "Удаление временной директории";
-                    Progress_Lbl.Background = Brushes.DarkGray;
-                    break;
-                case WorkStage.DONE:
-                    progressStatus.Value = 0;
-                    Progress_Lbl.Content = "Готово";
-                    Progress_Lbl.Background = Brushes.DarkGray;
-                    break;
-            }
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                switch (stage)
+                {
+                    case WorkStage.READ_FROM_EXCEL:
+                        progressStatus.Value = 0;
+                        Progress_Lbl.Content = "Чтение из Excel";
+                        Progress_Lbl.Background = Brushes.DarkGray;
+                        break;
+                    case WorkStage.CREATE_DOC:
+                        progressStatus.Value = TransferToProgress(current, 0, all, 0, 100);
+                        Progress_Lbl.Content = "Создание документа " + current + " из " + all;
+                        Progress_Lbl.Background = Brushes.DarkGray;
+                        break;
+                    case WorkStage.MERGE_DOC:
+                        progressStatus.Value = 100;
+                        Progress_Lbl.Content = "Объединение документов";
+                        Progress_Lbl.Background = Brushes.DarkGray;
+                        break;
+                    case WorkStage.DELETE_TEMP_FILES:
+                        progressStatus.Value = 100;
+                        Progress_Lbl.Content = "Удаление временной директории";
+                        Progress_Lbl.Background = Brushes.DarkGray;
+                        break;
+                    case WorkStage.DONE:
+                        progressStatus.Value = 0;
+                        Progress_Lbl.Content = "Готово";
+                        Progress_Lbl.Background = Brushes.DarkGray;
+                        break;
+                }
+            }));
         }
 
         private int TransferToProgress(int value, int in_min, int in_max, int out_min, int out_max)
