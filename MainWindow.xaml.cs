@@ -187,6 +187,17 @@ namespace CertificateMaker
         {
 
         }
+
+        private void ClickDeleteField(object sender, RoutedEventArgs e)
+        {
+            //int currentRowIndex = templateItems.Items.IndexOf(templateItems.CurrentItem);
+            int currentRowIndex = templateItems.SelectedIndex;
+            if (currentRowIndex != -1)
+            {
+                preset.rows.RemoveAt(currentRowIndex);
+                UpdateFromPreset();
+            }
+        }
     }
     public class User
     {
