@@ -140,7 +140,7 @@ namespace CertificateMaker
                 }
         }
         private void Add_Button_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             string templateField = textBoxTemplateName.Text;
             if (templateField.Equals(""))
             {
@@ -264,6 +264,7 @@ namespace CertificateMaker
                         progressStatus.Value = 0;
                         Progress_Lbl.Content = "Готово";
                         Progress_Lbl.Background = Brushes.DarkGray;
+                        System.Media.SystemSounds.Exclamation.Play();
                         break;
                 }
             }));
