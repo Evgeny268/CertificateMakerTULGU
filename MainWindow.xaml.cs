@@ -184,6 +184,21 @@ namespace CertificateMaker
             Progress_Lbl.Content = "";
             Progress_Lbl.Background = Brushes.DarkGray;
             textBoxTemplateName.BorderBrush = Brushes.Gray;
+            if (textBoxTemplateName.Text.Equals("") || textBoxTemplateName.Text.Equals("Название поля"))
+            {
+                AddBtn.IsEnabled = false;
+                textBoxTemplateName.Text = "Название поля";
+                textBoxTemplateName.Foreground = Brushes.DarkGray;
+            }
+            if (textBoxValue.Text.Equals("") || textBoxValue.Text.Equals("Номер столбца") || textBoxValue.Text.Equals("Начальное значение"))
+            {
+                AddBtn.IsEnabled = false;
+                if (comboBoxType.SelectedIndex == 0)
+                    textBoxValue.Text = "Номер столбца";
+                else
+                    textBoxValue.Text = "Начальное значение";
+                textBoxValue.Foreground = Brushes.DarkGray;
+            }
         }
 
         private void ClickDeleteField(object sender, RoutedEventArgs e)
@@ -273,7 +288,7 @@ namespace CertificateMaker
         private void toRow_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!fromRow.Text.Equals(""))
-                if ((int.Parse(toRow.Text) < int.Parse(fromRow.Text)) )
+                if ((int.Parse(toRow.Text) <= int.Parse(fromRow.Text)) )
                 {
                     Progress_Lbl.Content = "Значение ДО не может быть меньше значения ОТ!";
                     Progress_Lbl.Background = Brushes.Red;
@@ -282,7 +297,7 @@ namespace CertificateMaker
                     btnSave.IsEnabled = false;
                     return;
                 }            
-            if (toRow.Text.Equals("") || toRow.Text.Equals(""))
+            if (toRow.Text.Equals(""))
             {
                 Progress_Lbl.Content = "Значение ДО не может пустым!";
                 Progress_Lbl.Background = Brushes.Red;
@@ -300,7 +315,7 @@ namespace CertificateMaker
 
         private void fromRow_LostFocus(object sender, RoutedEventArgs e)
         {            
-            if (int.Parse(fromRow.Text) == 0 || fromRow.Text.Equals(""))
+            if (fromRow.Text.Equals("0") || fromRow.Text.Equals(""))
             {
                 Progress_Lbl.Content = "Значение полея ОТ не может быть пустым или равно 0";
                 Progress_Lbl.Background = Brushes.Red;
@@ -309,7 +324,7 @@ namespace CertificateMaker
                 return;
             }
             if (!toRow.Text.Equals(""))
-                if (int.Parse(toRow.Text) < int.Parse(fromRow.Text))
+                if (int.Parse(toRow.Text) <= int.Parse(fromRow.Text))
                 {
                     Progress_Lbl.Content = "Значение ОТ не может быть больше значения ДО!";
                     Progress_Lbl.Background = Brushes.Red;
@@ -328,6 +343,15 @@ namespace CertificateMaker
 
         private void textBoxValue_LostFocus(object sender, RoutedEventArgs e)
         {
+            if (textBoxValue.Text.Equals("") || textBoxValue.Text.Equals("Номер столбца") || textBoxValue.Text.Equals("Начальное значение"))
+            {
+                AddBtn.IsEnabled = false;
+                if (comboBoxType.SelectedIndex == 0)
+                    textBoxValue.Text = "Номер столбца";
+                else
+                    textBoxValue.Text = "Начальное значение";
+                textBoxValue.Foreground = Brushes.DarkGray;
+            }
             if (textBoxValue.Text.Equals("0"))
             {
                 Progress_Lbl.Content = "Значение не может быть равно 0";
@@ -338,8 +362,62 @@ namespace CertificateMaker
             }
             Progress_Lbl.Content = "";
             Progress_Lbl.Background = Brushes.DarkGray;
-            textBoxValue.BorderBrush = Brushes.Gray;
+            textBoxValue.BorderBrush = Brushes.Gray;            
             btnSave.IsEnabled = true;      
+        }
+
+        private void textBoxTemplateName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (textBoxTemplateName.Text.Equals("Название поля"))
+                textBoxTemplateName.Text = "";
+            textBoxTemplateName.Foreground = Brushes.Black;
+        }
+
+        private void textBoxTemplateName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (textBoxTemplateName.Text.Equals("") || textBoxTemplateName.Text.Equals("Название поля"))
+            {
+                AddBtn.IsEnabled = false;
+                textBoxTemplateName.Text = "Название поля";
+                textBoxTemplateName.Foreground = Brushes.DarkGray;
+            }
+            if (!textBoxTemplateName.Text.Equals("") && !textBoxTemplateName.Text.Equals("Название поля") && !textBoxValue.Text.Equals("") && !textBoxValue.Text.Equals("Номер столбца") && !textBoxValue.Text.Equals("Начальное значение"))
+                AddBtn.IsEnabled = true;
+        }
+
+        private void textBoxValue_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (textBoxValue.Text.Equals("Номер столбца") || textBoxValue.Text.Equals("Начальное значение"))
+                textBoxValue.Text = "";
+            textBoxValue.Foreground = Brushes.Black;
+        }
+
+        private void comboBoxType_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (textBoxValue.Text.Equals("") || textBoxValue.Text.Equals("Номер столбца") || textBoxValue.Text.Equals("Начальное значение"))
+            {
+                if (comboBoxType.SelectedIndex == 0)
+                    textBoxValue.Text = "Номер столбца";
+                else
+                    textBoxValue.Text = "Начальное значение";
+                textBoxValue.Foreground = Brushes.DarkGray;
+            }
+        }
+
+        private void textBoxValue_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!textBoxTemplateName.Text.Equals("") && !textBoxTemplateName.Text.Equals("Название поля") && !textBoxValue.Text.Equals("") && !textBoxValue.Text.Equals("Номер столбца") && !textBoxValue.Text.Equals("Начальное значение"))
+                AddBtn.IsEnabled = true;
+            else
+                AddBtn.IsEnabled = false;
+        }
+
+        private void textBoxTemplateName_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!textBoxTemplateName.Text.Equals("") && !textBoxTemplateName.Text.Equals("Название поля") && !textBoxValue.Text.Equals("") && !textBoxValue.Text.Equals("Номер столбца") && !textBoxValue.Text.Equals("Начальное значение"))
+                AddBtn.IsEnabled = true;
+            else
+                AddBtn.IsEnabled = false;
         }
     }
 }
