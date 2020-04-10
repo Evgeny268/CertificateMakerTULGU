@@ -70,7 +70,7 @@ namespace CertificateMaker.core.appWorker
             }
         }
 
-        public bool CheckPreset(presets.Preset preset)
+        public static bool CheckPreset(presets.Preset preset)
         {
             if (preset.templatePath == null || preset.excelPath == null || preset.startRowImport == null || preset.endRowImport == null || preset.rows == null)
             {
