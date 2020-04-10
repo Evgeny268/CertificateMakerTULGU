@@ -1,4 +1,5 @@
-﻿using CertificateMaker.core.presets;
+﻿using CertificateMaker.core.appWorker;
+using CertificateMaker.core.presets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace CertificateMaker
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, core.appWorker.IWorkerListener
     {
         core.presets.Preset preset = new core.presets.Preset();
         public MainWindow()
         {
             InitializeComponent();            
-        }               
+        }
 
         private void btnWordLoad_Click(object sender, RoutedEventArgs e)
         {
@@ -140,17 +142,20 @@ namespace CertificateMaker
                 ExcelFileName.Content = preset.excelPath;
             if (preset.templatePath != null)
                 WordFileName.Content = preset.templatePath;
-            for (int i = 0; i < preset.rows.Count(); i++)
-            {
-                templateItems.Items.Add(preset.rows[i]);
-            }
+            if (preset.rows != null)
+                for (int i = 0; i < preset.rows.Count(); i++)
+                {
+                    templateItems.Items.Add(preset.rows[i]);
+                }
         }
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
             string templateField = textBoxTemplateName.Text;
             if (templateField.Equals(""))
             {
-                //TODO заругать, что не введне тэг
+                Progress_Lbl.Content = "Введите название поля!";
+                Progress_Lbl.Background = Brushes.Red;
+                textBoxTemplateName.BorderBrush = Brushes.Red;
                 return;
             }
             TemplateType type;
@@ -166,13 +171,17 @@ namespace CertificateMaker
             string value = textBoxValue.Text;
             if (value.Equals(""))
             {
-                //TODO заругать, что не введено значение
+                Progress_Lbl.Content = "Введите значение!";
+                Progress_Lbl.Background = Brushes.Red;
+                textBoxValue.BorderBrush = Brushes.Red;
                 return;
             }
             core.presets.Table oldTable = preset.GetTableByName(templateField);
             if (oldTable != null)
             {
-                //TODO заругать, что такой тэг уже есть
+                Progress_Lbl.Content = "Такое название поля уже существует!";
+                Progress_Lbl.Background = Brushes.Red;
+                textBoxTemplateName.BorderBrush = Brushes.Red;
                 return;
             }
             textBoxTemplateName.Text = "";
@@ -181,16 +190,13 @@ namespace CertificateMaker
             core.presets.Table addTable = new core.presets.Table(templateField, type, int.Parse(value));
             preset.rows.Add(addTable);
             UpdateFromPreset();
-        }
-
-        private void add(object sender, RoutedEventArgs e)
-        {
-
+            Progress_Lbl.Content = "";
+            Progress_Lbl.Background = Brushes.DarkGray;
+            textBoxTemplateName.BorderBrush = Brushes.Gray;
         }
 
         private void ClickDeleteField(object sender, RoutedEventArgs e)
-        {
-            //int currentRowIndex = templateItems.Items.IndexOf(templateItems.CurrentItem);
+        {            
             int currentRowIndex = templateItems.SelectedIndex;
             if (currentRowIndex != -1)
             {
@@ -198,13 +204,107 @@ namespace CertificateMaker
                 UpdateFromPreset();
             }
         }
-    }
-    public class User
-    {
-        public string TagName { get; set; }
 
-        public ComboBox DataType { get; set; }
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (!core.appWorker.AppWorker.CheckPreset(preset))
+            {
+                Progress_Lbl.Content = "Не все данные заполнены";
+                Progress_Lbl.Background = Brushes.Red;
+                return;
+            }
 
-        public Nullable<int> Value { get; set; }
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Document"; // Default file name
+            dlg.DefaultExt = ".DOCX"; // Default file extension
+            dlg.Filter = "MS Word Документ|*.DOCX"; // Filter files by extension
+
+            if (dlg.ShowDialog() == true)
+            {
+                core.appWorker.AppWorker appWorker = new core.appWorker.AppWorker();
+                try
+                {
+                    appWorker.workerListener = this;
+                    Thread thread = new Thread(() => appWorker.MakeDocs(dlg.FileName, preset));
+                    thread.Start();
+                }
+                catch
+                {
+                    Progress_Lbl.Content = "Произошла ошибка! Проверьте пути до файлов и начилие MS Office";
+                    Progress_Lbl.Background = Brushes.Red;
+                    progressStatus.Value = 0;
+                    return;
+                }
+            }
+            else
+            {
+                Progress_Lbl.Content = "Произошла ошибка! Проверьте пути до файлов и начилие MS Office";
+                Progress_Lbl.Background = Brushes.Red;
+            }            
+        }
+
+        public void WorkStatus(WorkStage stage, int current, int all)
+        {
+            switch(stage)
+            {
+                case WorkStage.READ_FROM_EXCEL:
+                    progressStatus.Value = 0;
+                    Progress_Lbl.Content = "Чтение из Excel";
+                    Progress_Lbl.Background = Brushes.DarkGray;
+                    break;
+                case WorkStage.CREATE_DOC:
+                    progressStatus.Value = TransferToProgress(current, 0, all, 0, 100);
+                    Progress_Lbl.Content = "Создание документа " + current + " из " + all;
+                    Progress_Lbl.Background = Brushes.DarkGray;
+                    break;
+                case WorkStage.MERGE_DOC:
+                    progressStatus.Value = 100;
+                    Progress_Lbl.Content = "Объединение документов";
+                    Progress_Lbl.Background = Brushes.DarkGray;
+                    break;
+                case WorkStage.DELETE_TEMP_FILES:
+                    progressStatus.Value = 100;
+                    Progress_Lbl.Content = "Удаление временной директории";
+                    Progress_Lbl.Background = Brushes.DarkGray;
+                    break;
+                case WorkStage.DONE:
+                    progressStatus.Value = 0;
+                    Progress_Lbl.Content = "Готово";
+                    Progress_Lbl.Background = Brushes.DarkGray;
+                    break;
+            }
+        }
+
+        private int TransferToProgress(int value, int in_min, int in_max, int out_min, int out_max)
+        {
+            return (value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
+
+        private void toRow_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(toRow.Text) < int.Parse(fromRow.Text))
+            {
+                Progress_Lbl.Content = "Значение до не может быть меньше значения от!";
+                Progress_Lbl.Background = Brushes.Red;
+                btnSave.IsEnabled = false;
+            }
+            Progress_Lbl.Content = "";
+            Progress_Lbl.Background = Brushes.DarkGray;
+            btnSave.IsEnabled = true;
+        }
+
+        private void onLostFocus(object sender, RoutedEventArgs e)
+        {
+            //TextBox textBox = ((TextBox)sender);
+            //if (int.Parse(textBox.Text) == 0 || !textBox.Text.Equals(""))
+            //{
+            //    Progress_Lbl.Content = "Значение полей не может быть пустым или равно 0";
+            //    Progress_Lbl.Background = Brushes.Red;
+            //    btnSave.IsEnabled = false;
+            //}
+            Progress_Lbl.Content = "";
+            Progress_Lbl.Background = Brushes.DarkGray;
+            btnSave.IsEnabled = true;
+        }
     }
 }
