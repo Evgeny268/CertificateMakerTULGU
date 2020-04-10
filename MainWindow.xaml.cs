@@ -276,9 +276,19 @@ namespace CertificateMaker
 
         private void toRow_LostFocus(object sender, RoutedEventArgs e)
         {
-            if ((int.Parse(toRow.Text) < int.Parse(fromRow.Text)) || !fromRow.Text.Equals("") || fromRow.Text != null)
+            if (!fromRow.Text.Equals(""))
+                if ((int.Parse(toRow.Text) < int.Parse(fromRow.Text)) )
+                {
+                    Progress_Lbl.Content = "Значение ДО не может быть меньше значения ОТ!";
+                    Progress_Lbl.Background = Brushes.Red;
+                    fromRow.BorderBrush = Brushes.Red;
+                    toRow.BorderBrush = Brushes.Red;
+                    btnSave.IsEnabled = false;
+                    return;
+                }            
+            if (toRow.Text.Equals("") || toRow.Text.Equals(""))
             {
-                Progress_Lbl.Content = "Значение ДО не может быть меньше значения ОТ!";
+                Progress_Lbl.Content = "Значение ДО не может пустым!";
                 Progress_Lbl.Background = Brushes.Red;
                 toRow.BorderBrush = Brushes.Red;
                 btnSave.IsEnabled = false;
@@ -287,32 +297,44 @@ namespace CertificateMaker
             preset.endRowImport = int.Parse(toRow.Text);           
             Progress_Lbl.Content = "";
             Progress_Lbl.Background = Brushes.DarkGray;
+            fromRow.BorderBrush = Brushes.Gray;
             toRow.BorderBrush = Brushes.Gray;
             btnSave.IsEnabled = true;
         }
 
         private void fromRow_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (int.Parse(fromRow.Text) == 0 || !fromRow.Text.Equals("") || fromRow.Text != null)
+        {            
+            if (int.Parse(fromRow.Text) == 0 || fromRow.Text.Equals(""))
             {
-                Progress_Lbl.Content = "Значение полей не может быть пустым или равно 0";
+                Progress_Lbl.Content = "Значение полея ОТ не может быть пустым или равно 0";
                 Progress_Lbl.Background = Brushes.Red;
                 fromRow.BorderBrush = Brushes.Red;
                 btnSave.IsEnabled = false;
                 return;
             }
+            if (!toRow.Text.Equals(""))
+                if (int.Parse(toRow.Text) < int.Parse(fromRow.Text))
+                {
+                    Progress_Lbl.Content = "Значение ОТ не может быть больше значения ДО!";
+                    Progress_Lbl.Background = Brushes.Red;
+                    fromRow.BorderBrush = Brushes.Red;
+                    toRow.BorderBrush = Brushes.Red;
+                    btnSave.IsEnabled = false;
+                    return;
+                }
             preset.startRowImport = int.Parse(fromRow.Text);
             Progress_Lbl.Content = "";
             Progress_Lbl.Background = Brushes.DarkGray;
             fromRow.BorderBrush = Brushes.Gray;
+            toRow.BorderBrush = Brushes.Gray;
             btnSave.IsEnabled = true;
         }
 
         private void textBoxValue_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (int.Parse(textBoxValue.Text) == 0 || !textBoxValue.Text.Equals("") || textBoxValue.Text != null)
+            if (textBoxValue.Text.Equals("0"))
             {
-                Progress_Lbl.Content = "Значение полей не может быть пустым или равно 0";
+                Progress_Lbl.Content = "Значение не может быть равно 0";
                 Progress_Lbl.Background = Brushes.Red;
                 textBoxValue.BorderBrush = Brushes.Red;
                 btnSave.IsEnabled = false;
