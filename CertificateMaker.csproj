@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ico.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -63,6 +66,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="core\appWorker\AppWorker.cs" />
+    <Compile Include="core\appWorker\IWorkerListener.cs" />
+    <Compile Include="core\office\ExcelWorker.cs" />
+    <Compile Include="core\office\WordWorker.cs" />
+    <Compile Include="core\presets\Preset.cs" />
+    <Compile Include="core\presets\PresetLoader.cs" />
+    <Compile Include="core\presets\Table.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -133,7 +143,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="core\office\" />
+    <Resource Include="ico.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
