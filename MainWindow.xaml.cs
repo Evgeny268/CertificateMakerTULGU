@@ -299,7 +299,7 @@ namespace CertificateMaker
         private void toRow_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!fromRow.Text.Equals("") && !toRow.Text.Equals(""))
-                if ((int.Parse(toRow.Text) <= int.Parse(fromRow.Text)) )
+                if ((int.Parse(toRow.Text) < int.Parse(fromRow.Text)) )
                 {
                     Progress_Lbl.Content = "Значение ДО не может быть меньше значения ОТ!";
                     Progress_Lbl.Background = Brushes.Red;
@@ -335,7 +335,7 @@ namespace CertificateMaker
                 return;
             }
             if (!fromRow.Text.Equals("") && !toRow.Text.Equals(""))
-                if (int.Parse(toRow.Text) <= int.Parse(fromRow.Text))
+                if (int.Parse(toRow.Text) < int.Parse(fromRow.Text))
                 {
                     Progress_Lbl.Content = "Значение ОТ не может быть больше значения ДО!";
                     Progress_Lbl.Background = Brushes.Red;
@@ -394,6 +394,7 @@ namespace CertificateMaker
             }
             if (!textBoxTemplateName.Text.Equals("") && !textBoxTemplateName.Text.Equals("Название поля") && !textBoxValue.Text.Equals("") && !textBoxValue.Text.Equals("Номер столбца") && !textBoxValue.Text.Equals("Начальное значение"))
                 AddBtn.IsEnabled = true;
+            textBoxTemplateName.BorderBrush = Brushes.Gray;
         }
 
         private void textBoxValue_GotFocus(object sender, RoutedEventArgs e)
@@ -442,6 +443,30 @@ namespace CertificateMaker
         private void subAbout_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Разработчики программы:\n\nПищулин Евгений Владимирович\nhttps://vk.com/id139690919\n\nГуриков Илья Олегович\nhttps://vk.com/id103838001\n\nСсылка на репозиторий:\nhttps://github.com/Evgeny268/CertificateMakerTULGU", "О программе");
+        }
+
+        private void textBoxValue_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!textBoxTemplateName.Text.Equals("") && !textBoxTemplateName.Text.Equals("Название поля") && !textBoxValue.Text.Equals("") && !textBoxValue.Text.Equals("Номер столбца") && !textBoxValue.Text.Equals("Начальное значение"))
+                AddBtn.IsEnabled = true;
+            else
+                AddBtn.IsEnabled = false;
+        }
+
+        private void textBoxTemplateName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!textBoxTemplateName.Text.Equals("") && !textBoxTemplateName.Text.Equals("Название поля") && !textBoxValue.Text.Equals("") && !textBoxValue.Text.Equals("Номер столбца") && !textBoxValue.Text.Equals("Начальное значение"))
+                AddBtn.IsEnabled = true;
+            else
+                AddBtn.IsEnabled = false;
+        }
+
+        private void textBoxValue_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (!textBoxTemplateName.Text.Equals("") && !textBoxTemplateName.Text.Equals("Название поля") && !textBoxValue.Text.Equals("") && !textBoxValue.Text.Equals("Номер столбца") && !textBoxValue.Text.Equals("Начальное значение"))
+                AddBtn.IsEnabled = true;
+            else
+                AddBtn.IsEnabled = false;
         }
     }
 }

@@ -44,7 +44,7 @@
             <Button Content="О программе" Width="100" x:Name="subAbout" Click="subAbout_Click" HorizontalAlignment="Left"/>
         </Menu>
         <ProgressBar x:Name="progressStatus" Height="24" Margin="10,547,9,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBoxTemplateName" HorizontalAlignment="Left" Height="24" Margin="10,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Text="Название поля" Foreground="DarkGray" GotFocus="textBoxTemplateName_GotFocus" LostFocus="textBoxTemplateName_LostFocus" MouseLeave="textBoxTemplateName_MouseLeave" RenderTransformOrigin="0.391,0.681"/>
+        <TextBox x:Name="textBoxTemplateName" HorizontalAlignment="Left" Height="24" Margin="10,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Text="Название поля" Foreground="DarkGray" GotFocus="textBoxTemplateName_GotFocus" LostFocus="textBoxTemplateName_LostFocus" MouseLeave="textBoxTemplateName_MouseLeave" RenderTransformOrigin="0.391,0.681" KeyDown="textBoxTemplateName_KeyDown"/>
         <ComboBox x:Name="comboBoxType" HorizontalAlignment="Left" Margin="173,248,0,0" VerticalAlignment="Top" Width="120" Height="24" SelectedIndex="0" RenderTransformOrigin="0.142,0.542" MouseLeave="comboBoxType_MouseLeave">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -55,7 +55,7 @@
             <ComboBoxItem Content="excel"></ComboBoxItem>
             <ComboBoxItem Content="автоинкремент"></ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="textBoxValue" HorizontalAlignment="Left" Height="24" Margin="313,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" PreviewTextInput="OnPreviewTextInput" LostFocus="textBoxValue_LostFocus" Text="Номер столбца" Foreground="DarkGray" GotFocus="textBoxValue_GotFocus" MouseLeave="textBoxValue_MouseLeave"/>
+        <TextBox x:Name="textBoxValue" HorizontalAlignment="Left" Height="24" Margin="313,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" PreviewTextInput="OnPreviewTextInput" LostFocus="textBoxValue_LostFocus" Text="Номер столбца" Foreground="DarkGray" GotFocus="textBoxValue_GotFocus" MouseLeave="textBoxValue_MouseLeave" KeyDown="textBoxValue_KeyDown" KeyUp="textBoxValue_KeyUp"/>
         <Button x:Name="button" Content="Удалить выделенное поле" HorizontalAlignment="Left" Margin="10,495,0,0" VerticalAlignment="Top" Width="233" Click="ClickDeleteField" FontSize="14" Background="#FFF3F3F3"/>
         <Label x:Name="Progress_Lbl" Content="" HorizontalAlignment="Left" Margin="0,625,0,-5" VerticalAlignment="Top" Width="598" Height="41" FontSize="14" Grid.ColumnSpan="2" Foreground="White">
             <Label.Background>
